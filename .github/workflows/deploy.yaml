@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t yuko/react-test -f Dockerfile.dev .
-      - run: docker run -e CI=true yuko/react-test npm test
-
+      - name: Build Docker Image
+        run: docker build --no-cach -t yuko/react-prod -f Dockerfile.dev .
+      - name: Build Docker Image for Tests
+        run: docker run -e CI=true yuko/react-prod npm test
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
-
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v22
         with:
