@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker Image
-        run: docker build --no-cach -t yuko/react-prod -f Dockerfile.dev .
+        run: docker build --no-cache -t yuko/react-prod -f Dockerfile.dev .
       - name: Build Docker Image for Tests
         run: docker run -e CI=true yuko/react-prod npm test
       - name: Generate deployment package
